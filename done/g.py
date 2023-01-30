@@ -1,34 +1,32 @@
 from collections import Counter
 
-input_table = [
-    [4, 3],
-    [3, 1],
-    [1, 2],
-    [2, 4],
-    [2, 5],
-    [6, 8],
-]
+mock_tables = [[4, 3], [3, 1], [1, 2], [2, 4], [2, 5], [6, 8], ]
 
-friends_list = [i for i in range(1, 9)]  # нужно брать из ввода
+mock_friends_list = [i for i in range(1, 9)]
 
-correct_result = [
-    [4],
-    [3],
-    [2],
-    [1],
-    [1, 4],
-    [0],
-    [0],
-    [0],
-]
+correct_results = [[4], [3], [2], [1], [1, 4], [0], [0], [0], ]
 
 
-# TODO 7 пользователя нет в вводе, но в ввыводе есть!
+# input
+# 8 6
+# 4 3
+# 3 1
+# 1 2
+# 2 4
+# 2 5
+# 6 8
 
+# output
+# 4
+# 3
+# 2
+# 1
+# 1 4
+# 0
+# 0
+# 0
 
-# 1 -> 2 1 -> 3
-
-def create_fiends_dicts(table: [[int]], users):
+def match_friends(table: [[int]], users):
     friends_dict = dict()
     res = []
 
@@ -66,5 +64,19 @@ def create_fiends_dicts(table: [[int]], users):
     return res
 
 
-print(create_fiends_dicts(input_table, friends_list))
-# print(input_couples)
+def get_input_nums_array():
+    return [int(inp) for inp in input().split(' ')]
+
+
+friends_count = 8  # 8
+iters_num = 6  # 6 (couples count)
+friends_list = []
+for i in range(iters_num):  # mock_tables
+    first_friend, second_friend = get_input_nums_array()  # i
+    friends_list.append([first_friend, second_friend])
+
+mutual_friends = match_friends(friends_list, [i for i in range(1, friends_count + 1)])
+for friends_couple in mutual_friends:
+    print(*friends_couple)
+
+# print(create_fiends_dicts(mock_tables, friends_list))

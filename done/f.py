@@ -1,6 +1,6 @@
 import datetime
 
-input_table = [
+mock_tables = [
 
     ['02:46:00-03:14:59'],
 
@@ -23,6 +23,38 @@ input_table = [
     ['24:00:00-23:59:59'],
 ]
 correct_result = ['YES', 'YES', 'NO', 'NO', 'YES', 'NO']
+
+
+# input
+# 6
+# 1
+# 02:46:00-03:14:59
+# 2
+# 23:59:59-23:59:59
+# 00:00:00-23:59:58
+# 2
+# 23:59:58-23:59:59
+# 00:00:00-23:59:58
+# 2
+# 23:59:59-23:59:58
+# 00:00:00-23:59:57
+# 6
+# 17:53:39-20:20:02
+# 10:39:17-11:00:52
+# 08:42:47-09:02:14
+# 09:44:26-10:21:41
+# 00:46:17-02:07:19
+# 22:42:50-23:17:46
+# 1
+# 24:00:00-23:59:59
+
+# output
+# YES
+# YES
+# NO
+# NO
+# YES
+# NO
 
 
 def validate_dates(dates_ranges: [str]):
@@ -72,13 +104,28 @@ def validate_dates(dates_ranges: [str]):
     return 'YES'
 
 
-def whole_validation(table: [[str]]):
-    res = []
-    for dates in table:
-        res.append(validate_dates(dates))
+iters_num = int(input())
+res = []
+for i in range(iters_num):
+    dates_count = int(input())
+    dates_list = []
+    for date_range in range(dates_count):
+        dates_list.append(input())
+    res.append(validate_dates(dates_list))
 
-    return res
+for r in res:
+    print(r)
 
 
-print(whole_validation(input_table))
-print(correct_result)
+
+# local test variant
+# def whole_validation(table: [[str]]):
+#     res = []
+#     for dates in table:
+#         res.append(validate_dates(dates))
+#
+#     return res
+#
+#
+# print(whole_validation(mock_tables))
+# print(correct_result)
