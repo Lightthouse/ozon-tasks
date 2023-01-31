@@ -34,20 +34,19 @@ correct_results = ['YES', 'NO', 'YES', 'YES', 'NO']
 def get_input_nums_array():
     return [int(inp) for inp in input().split(' ')]
 
-
-def report(programmer_tasks: [int]):
-    used_nums = []
+def report(tasks):
     prev_task = -1
+    used_task = []
 
-    for task in programmer_tasks:
+    for task in tasks:
 
-        if task in used_nums and not prev_task == task:
-            return 'NO'
-
-        used_nums.append(task)
+        if not task == prev_task:
+            used_task.append(task)
         prev_task = task
 
-    return 'YES'
+    if (len(used_task) == len(set(used_task))):
+        return 'YES'
+    return 'NO'
 
 
 iters_num = int(input())
@@ -56,17 +55,14 @@ for i in range(iters_num):
     reports_list = get_input_nums_array()
     print(report(reports_list))
 
+    # local test variant
+    # def whole_report(all_programmers_tasks: [[int]]):
+    #     result_report = []
+    #     for tasks in all_programmers_tasks:
+    #         result_report.append(report(tasks))
 
-
-
-# local test variant
-# def whole_report(all_programmers_tasks: [[int]]):
-#     result_report = []
-#     for tasks in all_programmers_tasks:
-#         result_report.append(report(tasks))
-#
 #     return result_report
-#
 #
 # print(whole_report(mock_tables))
 # print(correct_results)
+
