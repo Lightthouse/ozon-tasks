@@ -28,13 +28,13 @@ correct_answer = ['YES', 'NO', 'YES']
 # YES
 
 
-def validate_map(geks_map: [[str]], columns: int, rows: int):
-
-    def sort_zones_map(table: [[str]], clm_count, rws_count):
+def validate_map(geks_map: [[str]], columns_len: int, rows_len: int):
+    def sort_zones_map(table: [[str]], columns_len, rows_len):
         zones_dick = dict()
-        for row_num in range(rws_count):
 
-            for col_num in range(clm_count):
+        for row_num in range(rows_len):
+
+            for col_num in range(columns_len):
                 current_zone = table[row_num][col_num]
                 if current_zone == '.':
                     continue
@@ -44,28 +44,27 @@ def validate_map(geks_map: [[str]], columns: int, rows: int):
                     zones_dick[current_zone] = {'related': [current_coords], 'unrelated': []}
                     continue
 
-                last_related_zone = zones_dick[current_zone]['related'][:-2:-1][0]
+                related_zones = zones_dick[current_zone]['related']
 
                 # проверяем, связанность гекса с предыдущими в цепи
-                if [last_related_zone[0] + 0, last_related_zone[1] + 2] == current_coords or \
-                        [last_related_zone[0] + 1, last_related_zone[1] + 1] == current_coords or \
-                        [last_related_zone[0] + 1, last_related_zone[1] - 1] == current_coords:
+                if [current_coords[0] + 0, current_coords[1] - 2] in related_zones or \
+                        [current_coords[0] - 1, current_coords[1] + 1] in related_zones or \
+                        [current_coords[0] - 1, current_coords[1] - 1] in related_zones:
 
                     zones_dick[current_zone]['related'].append(current_coords)
                 else:
+                    print(zones_dick[current_zone]['related'], '<>', zones_dick[current_zone]['unrelated'],
+                          current_coords)
                     zones_dick[current_zone]['unrelated'].append(current_coords)
 
         return zones_dick
 
     def rematch_unrelated_zones(zones: dict):
-        # Можно сразу возращать YES, NO
-        # Можно сразу принимать list, а не dict
-        for _, zone in zones.items():
-            related_geks = zone['related']
-            unrelated_geks = zone['unrelated']
 
-            # мб часть проверок сделали раньше
-            for unr_gek in unrelated_geks:
+        def rematch(related_geks, unrelated_geks):
+
+            for gek_index, unr_gek in enumerate(unrelated_geks):
+
                 if [unr_gek[0] + 0, unr_gek[1] + 2] in related_geks or \
                         [unr_gek[0] + 0, unr_gek[1] - 2] in related_geks or \
                         [unr_gek[0] + 1, unr_gek[1] - 1] in related_geks or \
@@ -73,13 +72,21 @@ def validate_map(geks_map: [[str]], columns: int, rows: int):
                         [unr_gek[0] - 1, unr_gek[1] - 1] in related_geks or \
                         [unr_gek[0] - 1, unr_gek[1] + 1] in related_geks:
                     related_geks.append(unr_gek)
-                    continue
+                    del unrelated_geks[gek_index]
 
-                # print('gg ', zone_name, '<>', related_zones, '<>', unrelated_zones, '<>', unr_z)
+                    return rematch(related_geks, unrelated_geks)
+
+            return len(unrelated_geks) == 0
+
+        for _, zone in zones.items():
+
+            rematched_success = rematch(zone['related'], zone['unrelated'])
+            if not rematched_success:
                 return False
+
         return True
 
-    sorted_zones = sort_zones_map(geks_map, columns, rows)
+    sorted_zones = sort_zones_map(geks_map, columns_len, rows_len)
     unrelated_zones = {k: v for k, v in sorted_zones.items() if v['unrelated']}
     all_zones_matched = rematch_unrelated_zones(unrelated_zones)
 
@@ -104,11 +111,11 @@ for i in range(iters_num):
 for r in res:
     print(r)
 
-#local test variant
+# local test variant
 # def whole_validation(table: list):
 #     res = []
 #     for i_map in table:
-#         res.append(validate_map(i_map, len(i_map), len(i_map[0])))
+#         res.append(validate_map(i_map, len(i_map[0]), len(i_map)))
 #     return res
 #
 #
