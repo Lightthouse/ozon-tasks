@@ -103,7 +103,7 @@ def validate_dates(dates_ranges: [str]):
 
     return 'YES'
 
-
+#
 iters_num = int(input())
 res = []
 for i in range(iters_num):

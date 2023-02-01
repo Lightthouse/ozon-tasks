@@ -5,6 +5,8 @@ input_arr = [
 
 ]
 
+
+
 # input
 # 3
 # 6
@@ -27,6 +29,7 @@ input_arr = [
 # 6 8
 
 
+
 def find_coproger(couples_list: [int], couples_count: [int]):
     res = []
     for proger_index in range(couples_count):
@@ -45,8 +48,7 @@ def find_coproger(couples_list: [int], couples_count: [int]):
         res.append([proger_index + 1, coproger_index + 1])
     return res
 
-
-def get_input_nums_array():
+def get_input_nums_array() -> [int]:
     return [int(inp) for inp in input().split()]
 
 
