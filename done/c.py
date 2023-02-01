@@ -1,3 +1,5 @@
+from typing import List
+
 input_arr = [
     [2, 1, 3, 1, 1, 4],
     [5, 5],
@@ -5,32 +7,10 @@ input_arr = [
 
 ]
 
+MAX_LEVEL = 100
 
 
-# input
-# 3
-# 6
-# 2 1 3 1 1 4
-# 2
-# 5 5
-# 8
-# 1 4 2 5 4 2 6 3
-
-# output
-# 1 2
-# 3 6
-# 4 5
-#
-# 1 2
-#
-# 1 3
-# 2 5
-# 4 7
-# 6 8
-
-
-
-def find_coproger(couples_list: [int], couples_count: [int]):
+def find_coproger(couples_list: List[int], couples_count: int) -> List[List]:
     res = []
     for proger_index in range(couples_count):
 
@@ -48,17 +28,19 @@ def find_coproger(couples_list: [int], couples_count: [int]):
         res.append([proger_index + 1, coproger_index + 1])
     return res
 
-def get_input_nums_array() -> [int]:
+
+def get_input_nums_array() -> List[int]:
     return [int(inp) for inp in input().split()]
 
 
-iters_num = int(input()) # 1
-MAX_LEVEL = 100
-for i in range(iters_num):
-    progers_count = int(input()) # 6
-    progers_levels = get_input_nums_array() #  [2, 1, 3, 1, 1, 4]
-    for couple in find_coproger(progers_levels, progers_count):
-        print(couple[0], couple[1])
+def start_task() -> None:
+    iters_num = int(input())  # 1
+
+    for _ in range(iters_num):
+        progers_count = int(input())  # 6
+        progers_levels = get_input_nums_array()  # [2, 1, 3, 1, 1, 4]
+        for couple in find_coproger(progers_levels, progers_count):
+            print(couple[0], couple[1])
 
 
-
+start_task()

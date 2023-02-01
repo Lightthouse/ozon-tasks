@@ -18,4 +18,5 @@
 
 ![dora](https://www.bigcitystar.ru/wp-content/uploads/2021/02/7Dora3.jpg)
 
-[![Build status](https://github.com/Lightthouse/ozon-tasks/actions/workflows/lint.yml)](https://github.com/Lightthouse/ozon-tasks/actions/workflows/lint.yml/badge.svg?branch=main)
+[![Build status](https://github.com/Lightthouse/ozon-tasks/actions/workflows/lint.yml)](https://github.com/Lightthouse/ozon-tasks/actions/workflows/lint.yml/badge.svg)
+![Build status](https://github.com/Lightthouse/ozon-tasks/actions/workflows/lint.yml/badge.svg)

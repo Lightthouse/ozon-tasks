@@ -1,30 +1,8 @@
 from collections import Counter
+from typing import List
 
 
-# input
-# 6
-# 12
-# 2 2 2 2 2 2 2 3 3 3 3 3
-# 12
-# 2 3 2 3 2 2 3 2 3 2 2 3
-# 1
-# 10000
-# 9
-# 1 2 3 1 2 3 1 2 3
-# 6
-# 10000 10000 10000 10000 10000 10000
-# 6
-# 300 100 200 300 200 300
-
-# output
-# 22
-# 22
-# 10000
-# 12
-# 40000
-# 1100
-
-def products_sum(input_list: [int]):
+def products_sum(input_list: List[int]) -> int:
     list_sum = 0
     counted_list = Counter(input_list)
     for price in counted_list:
@@ -32,13 +10,17 @@ def products_sum(input_list: [int]):
     return list_sum
 
 
-def get_input_nums_array():
+def get_input_nums_array() -> List[int]:
     return [int(inp) for inp in input().split()]
 
 
-iters_num = int(input())
-for i in range(iters_num):
-    input_length = int(input())
-    input_numbers = get_input_nums_array()
+def start_task() -> None:
+    iters_num = int(input())
+    for _ in range(iters_num):
+        int(input())  # input_length
+        input_numbers = get_input_nums_array()
 
-    print(products_sum(input_numbers))
+        print(products_sum(input_numbers))
+
+
+start_task()

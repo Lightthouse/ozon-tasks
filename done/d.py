@@ -1,104 +1,65 @@
-from pprint import pprint as pp
+from typing import List
 
 mock_tables = [
-    [[3, 4, 1], [2, 2, 5], [2, 4, 2], [2, 2, 1], ],
+    [[3, 4, 1], [2, 2, 5], [2, 4, 2], [2, 2, 1]],
     [[100], [9], [10]],
-    [[2, 11, 72], [99, 11, 13], [2, 8, 13], ]
+    [[2, 11, 72], [99, 11, 13], [2, 8, 13]],
 ]
 
 mock_clicks = [[2, 1, 3], [1, 1], [2, 3, 2, 1, 2]]
 
 correct_results = [
-    [[2, 2, 1], [3, 4, 1], [2, 4, 2], [2, 2, 5], ],
+    [[2, 2, 1], [3, 4, 1], [2, 4, 2], [2, 2, 5]],
     [[9], [10], [100]],
-    [[2, 8, 13], [2, 11, 72], [99, 11, 13], ]
+    [[2, 8, 13], [2, 11, 72], [99, 11, 13]],
 ]
 
 
-# input
-# 3
-#
-# 4 3
-# 3 4 1
-# 2 2 5
-# 2 4 2
-# 2 2 1
-# 3
-# 2 1 3
-#
-# 3 1
-# 100
-# 9
-# 10
-# 2
-# 1 1
-#
-# 3 3
-# 2 11 72
-# 99 11 13
-# 2 8 13
-# 5
-# 2 3 2 1 2
-
-# output
-# 2 2 1
-# 3 4 1
-# 2 4 2
-# 2 2 5
-#
-# 9
-# 10
-# 100
-#
-# 2 8 13
-# 2 11 72
-# 99 11 13
-
-
-def get_input_nums_array():
+def get_input_nums_array() -> List[int]:
     return [int(inp) for inp in input().split(' ')]
 
 
-def sort_rule(x, sort_index, row_length):
-    # поумнее ставить гланвынй индекс в начало массива
+def sort_rule(x: List, sort_index: int, row_length: int) -> List:
+    # поумнее ставить главный индекс в начало массива
     return [x[sort_index - 1]] + [x[indx] for indx in range(row_length) if not indx == sort_index - 1]
 
 
-def sort_table(table: list, sort_index: int, row_length: int):
+def sort_table(table: list, sort_index: int, row_length: int) -> List[List]:
     return sorted(table, key=lambda x: sort_rule(x, sort_index, row_length))
 
 
-def click_table(table, clicks, columns):
+def click_table(table: List[List], clicks: List[int], columns: int) -> List[List]:
     clicked_table = table
     for click in clicks:
         clicked_table = sort_table(table, click, columns)
     return clicked_table
 
 
-# site test varian
-iters_num = int(input()) # 1
+def start_task() -> None:
+    iters_num = int(input())  # 1
 
-res = []
-for i in range(iters_num):
+    res = []
+    for _i in range(iters_num):
 
-    _ = input()
-    n_rows, m_cols = get_input_nums_array() #  [4, 3]
-    current_table = [] # mock_tables[0]
-    for n_row in range(n_rows):
-        current_table.append(get_input_nums_array())
+        _ = input()
+        n_rows, m_cols = get_input_nums_array()
+        current_table = []
+        for _n_row in range(n_rows):
+            current_table.append(get_input_nums_array())
 
-    clicks_count = int(input()) # 3
-    current_clicks = get_input_nums_array() # mock_clicks[0]
-    clicked_table = click_table(current_table, current_clicks, m_cols)
+        int(input())  # clicks_count
+        current_clicks = get_input_nums_array()
+        clicked_table = click_table(current_table, current_clicks, m_cols)
 
-    res.append(clicked_table)
+        res.append(clicked_table)
 
-for r in res:
-    for res_row in r:
-        print(*res_row)
-    print()
+    for r in res:
+        for res_row in r:
+            print(*res_row)
+        print()
 
 
+start_task()
 
 # local test variant
 # def compare_arrays(table_one, table_two):

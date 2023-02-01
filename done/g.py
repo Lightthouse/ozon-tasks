@@ -1,30 +1,13 @@
+from collections import Counter
+from typing import List, Dict
+
 mock_tables = [[4, 3], [3, 1], [1, 2], [2, 4], [2, 5], [6, 8], ]
 mock_friends_list = 9
 correct_results = [[4], [3], [2], [1], [1, 4], [0], [0], [0], ]
 
-# input
-# 8 6
-# 4 3
-# 3 1
-# 1 2
-# 2 4
-# 2 5
-# 6 8
 
-# output
-# 4
-# 3
-# 2
-# 1
-# 1 4
-# 0
-# 0
-# 0
-from collections import Counter
-
-
-def match_friends(table: [[int]], users_count):
-    friends_dict = {user: [] for user in range(1, users_count + 1)}
+def match_friends(table: List[List[int]], users_count: int) -> List:
+    friends_dict: Dict[int, List] = {user: [] for user in range(1, users_count + 1)}
     res = []
 
     for first, second in table:
@@ -53,18 +36,22 @@ def match_friends(table: [[int]], users_count):
     return res
 
 
-def get_input_nums_array():
+def get_input_nums_array() -> List[int]:
     return [int(inp) for inp in input().split(' ')]
 
 
-friends_count, iters_num = get_input_nums_array()
-friends_list = []
-for i in range(iters_num):  # mock_tables
-    first_friend, second_friend = get_input_nums_array()  # i
-    friends_list.append([first_friend, second_friend])
+def start_task() -> None:
+    friends_count, iters_num = get_input_nums_array()
+    friends_list = []
+    for _ in range(iters_num):
+        first_friend, second_friend = get_input_nums_array()
+        friends_list.append([first_friend, second_friend])
 
-mutual_friends = match_friends(friends_list, friends_count)
-for friends_couple in mutual_friends:
-    print(*friends_couple)
+    mutual_friends = match_friends(friends_list, friends_count)
+    for friends_couple in mutual_friends:
+        print(*friends_couple)
+
+
+start_task()
 
 # print(match_friends(mock_tables, mock_friends_list))

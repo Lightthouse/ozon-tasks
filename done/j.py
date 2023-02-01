@@ -1,33 +1,12 @@
-# mock_dictionary = ['mask', 'blonde', 'maiden']
-# mock_dictionary = ['task', 'decide', 'id']
 from typing import List, Dict
 
+# mock_dictionary = ['mask', 'blonde', 'maiden']
+# mock_dictionary = ['task', 'decide', 'id']
 mock_dictionary = ['a', 'kronask', 'anyask']
 
 mock_request = ['flask', 'code', 'void', 'forces', 'id', 'ask']
 
 correct_results = ['task', 'decide', 'id', 'task', 'decide', 'task']
-
-# input
-# 3
-# task
-# decide
-# id
-# 6
-# flask
-# code
-# void
-# forces
-# id
-# ask
-
-# output
-# task
-# decide
-# id
-# task
-# decide
-# task
 
 # можно сделать три массива с обрезанным словарем и провеять, есть ли кусок слова в этих словарях
 
@@ -65,7 +44,7 @@ def make_rhyme(word: str, dictionary: List[str], rhyme_dictionary: Dict) -> str:
 
         try:
             return rhyme_dictionary[rhyme_key][1]
-        except:
+        except IndexError:
             pass
 
     return rhyme
@@ -79,19 +58,21 @@ def find_rhymes(words: List[str], dictionary: List) -> List:
     return res
 
 
-#
-n_dictionary = int(input())  # 3
-dictionary = []
-words = []
-for wrd in range(n_dictionary):
-    dictionary.append(input())
+def start_task() -> None:
+    n_dictionary = int(input())  # 3
+    dictionary = []
+    words = []
+    for _ in range(n_dictionary):
+        dictionary.append(input())
 
-q_words = int(input())
-for wrd in range(q_words):
-    words.append(input())
+    q_words = int(input())
+    for _ in range(q_words):
+        words.append(input())
 
-for r in find_rhymes(words, dictionary):
-    print(r)
+    for r in find_rhymes(words, dictionary):
+        print(r)
 
+
+start_task()
 # local test variant
 # print(find_rhymes(mock_request, mock_dictionary))
