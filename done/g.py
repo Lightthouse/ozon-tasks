@@ -1,10 +1,6 @@
 from collections import Counter
 from typing import List, Dict
 
-mock_tables = [[4, 3], [3, 1], [1, 2], [2, 4], [2, 5], [6, 8], ]
-mock_friends_list = 9
-correct_results = [[4], [3], [2], [1], [1, 4], [0], [0], [0], ]
-
 
 def match_friends(table: List[List[int]], users_count: int) -> List:
     friends_dict: Dict[int, List] = {user: [] for user in range(1, users_count + 1)}
@@ -53,5 +49,3 @@ def start_task() -> None:
 
 
 start_task()
-
-# print(match_friends(mock_tables, mock_friends_list))

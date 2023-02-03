@@ -1,38 +1,48 @@
-from typing import List
+import copy
+from typing import List, no_type_check
 
-mock_tables = [
-    [[3, 4, 1], [2, 2, 5], [2, 4, 2], [2, 2, 1]],
-    [[100], [9], [10]],
-    [[2, 11, 72], [99, 11, 13], [2, 8, 13]],
-]
-
-mock_clicks = [[2, 1, 3], [1, 1], [2, 3, 2, 1, 2]]
-
-correct_results = [
-    [[2, 2, 1], [3, 4, 1], [2, 4, 2], [2, 2, 5]],
-    [[9], [10], [100]],
-    [[2, 8, 13], [2, 11, 72], [99, 11, 13]],
-]
+MAX_NUMBER_VALUE = 100
 
 
 def get_input_nums_array() -> List[int]:
     return [int(inp) for inp in input().split(' ')]
 
 
-def sort_rule(x: List, sort_index: int, row_length: int) -> List:
-    # поумнее ставить главный индекс в начало массива
-    return [x[sort_index - 1]] + [x[indx] for indx in range(row_length) if not indx == sort_index - 1]
+def click_table(input_table: List, clicks: List, rows_count: int, columns_count: int) -> List:
+    tables: List[List[int]] = [[] for colm in range(columns_count)]
+    result = []
+    indexes: List[int] = []
 
+    def sort_indexes(click: int) -> None:
+        for _ in tables_copy[click - 1]:
+            ind = tables_copy[click - 1].index(min(tables_copy[click - 1]))
+            indexes.append(ind)
+            tables_copy[click - 1][ind] = MAX_NUMBER_VALUE * 2
 
-def sort_table(table: list, sort_index: int, row_length: int) -> List[List]:
-    return sorted(table, key=lambda x: sort_rule(x, sort_index, row_length))
+    @no_type_check
+    def sort_tables(n: int) -> None:
+        for column, table in enumerate(tables, start=0):
+            new_row = [None] * n
+            for row_table in range(len(table)):
+                new_row[row_table] = table[indexes[row_table]]  # type: ignore
+            tables[column] = new_row  # type: ignore
 
+    for row in input_table:
+        for col_value in range(columns_count):
+            tables[col_value].append(row[col_value])
 
-def click_table(table: List[List], clicks: List[int], columns: int) -> List[List]:
-    clicked_table = table
     for click in clicks:
-        clicked_table = sort_table(table, click, columns)
-    return clicked_table
+        tables_copy = copy.deepcopy(tables)
+        sort_indexes(click)
+        sort_tables(rows_count)
+        indexes.clear()
+
+    row_range = range(len(tables[0]))
+    for row in row_range:
+        cl = [t[row] for t in tables]
+        result.append(cl)
+
+    return result
 
 
 def start_task() -> None:
@@ -49,7 +59,7 @@ def start_task() -> None:
 
         int(input())  # clicks_count
         current_clicks = get_input_nums_array()
-        clicked_table = click_table(current_table, current_clicks, m_cols)
+        clicked_table = click_table(current_table, current_clicks, n_rows, m_cols)
 
         res.append(clicked_table)
 
@@ -59,24 +69,5 @@ def start_task() -> None:
         print()
 
 
-start_task()
-
-# local test variant
-# def compare_arrays(table_one, table_two):
-#     equal = True
-#     for i in range(len(table_one)):
-#         if not table_one[i] == table_two[i]:
-#             equal = False
-#             break
-#
-#     return equal
-#
-#
-# for tbl_num in range(len(mock_tables)):
-#     mock_table = mock_tables[tbl_num]
-#
-#     clicked_table = click_table(mock_table, mock_clicks[tbl_num], len(mock_table[0]))
-#     correct_table = correct_results[tbl_num]
-#     tables_equal = compare_arrays(clicked_table, correct_table)
-#     print('equal: ', tables_equal, ' <> ', clicked_table, ' <> ', correct_table)
-#
+if __name__ == 'd':
+    start_task()

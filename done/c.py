@@ -1,12 +1,5 @@
 from typing import List
 
-input_arr = [
-    [2, 1, 3, 1, 1, 4],
-    [5, 5],
-    [1, 4, 2, 5, 4, 2, 6, 3],
-
-]
-
 MAX_LEVEL = 100
 
 

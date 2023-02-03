@@ -1,13 +1,5 @@
 from typing import List, Dict
 
-mock_tables = [
-    ['R.R.R.G', '.Y.G.G.', 'B.Y.V.V', ],
-    ['Y.R.B.B.', '.R.R.B.V', 'B.R.B.R.', '.B.B.R.R'],
-    ['G.B.R.G', '.G.G.G.', ],
-]
-
-correct_answer = ['YES', 'NO', 'YES']
-
 
 def sort_zones_map(table: List[str], columns_len: int, rows_len: int) -> Dict:
     zones_dick: Dict[str, Dict] = dict()
@@ -94,13 +86,3 @@ def start_task() -> None:
 
 
 start_task()
-# local test variant
-# def whole_validation(table: list):
-#     res = []
-#     for i_map in table:
-#         res.append(validate_map(i_map, len(i_map[0]), len(i_map)))
-#     return res
-#
-#
-# print(whole_validation(mock_tables))
-# print(correct_answer)
