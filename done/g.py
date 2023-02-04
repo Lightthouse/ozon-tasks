@@ -47,5 +47,5 @@ def start_task() -> None:
     for friends_couple in mutual_friends:
         print(*friends_couple)
 
-
-start_task()
+if __name__ == 'g':
+    start_task()

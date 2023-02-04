@@ -85,4 +85,5 @@ def start_task() -> None:
         print(r)
 
 
-start_task()
+if __name__ == 'h':
+    start_task()
